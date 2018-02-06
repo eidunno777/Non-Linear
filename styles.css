@@ -1,0 +1,190 @@
+#main{
+	width: 1100px;
+	height: 768px;
+	overflow: hidden;
+}
+
+#title{
+	color:red;
+	position:absolute;
+	size: 14px;
+	left: 50px;
+}
+
+/*PAGE 1*/
+#portrait{
+	width: 400px;
+	position: absolute;
+	left: 50px;
+	top :100px;
+	display: block;
+}
+#name{
+	font-size: 20px;
+	position: absolute;
+	right: 100px;
+	top: 100px;
+}
+#killedOn{
+	color:red;
+	position:absolute;
+	font-size: 20px;
+	right: 100px;
+	top: 140px;
+}
+#date{
+	font-size: 20px;
+	position: absolute;
+	right: 100px;
+	top: 180px;
+}
+#age{
+	font-size: 20px;
+	position: absolute;
+	right: 100px;
+	top: 220px;
+}
+
+/*NAV*/
+#nav{
+	position: absolute;
+	width: 150px;
+	height: 60px;
+	right: 50px;
+	bottom: 50px;
+}
+/*ARROWS*/
+#up{
+	position: absolute;
+	right: 0px;
+	bottom: 40px;
+	border:none;
+	background-color: none;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    opacity: 1;
+    outline:0;
+}
+#up:hover{
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+	opacity: 0.5;
+}
+#down{
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	border:none;
+	background-color: none;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    opacity: 1;
+    outline:0;
+}
+#down:hover{
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+	opacity: 0.5;
+}
+/*CIRCLE BUTTONS*/
+.circleBut{
+	border: none;
+	outline:0;
+	border-radius: 50% !important;
+	opacity: 1;
+    background-color:black;
+	width: 9px;
+	height: 12px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    opacity: 1;
+    transition: background-color 0.6s ease;
+}
+.circleBut:hover {
+	-webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+	opacity: 0.5;
+}
+.active{
+	background-color: red !important;
+	color: red !important;
+	transition: all ease 1s;
+}
+#navName{
+	size: 18px;
+	padding: 0px;
+	margin: 0px;
+}
+
+#page1{
+	width: 1000px;
+}
+#page2{
+	width: 1000px;
+	position: absolute;
+	left: 1300px;
+}
+#vid{
+	position: absolute;
+	left: 100px;
+	top: 200px;
+}
+#timelineBlock{
+	display: block;
+	transition: all 3s ease-in-out;
+}
+#page3{
+	width: 1000px;
+	position: absolute;
+	left: 2200px;
+}
+#protestText{
+	position:absolute;
+	right: 130px;
+	top: 600px;
+	color:red;
+	font-size: 20px;
+}
+
+#protestPic1{
+	position:absolute;
+	width: 400px;
+	right: 300px;
+	top: 300px;
+}
+#protestPic1{
+	position:absolute;
+	width: 350px;
+	height: 350px;
+	right: 100px;
+	top: 170px;
+}
+#protestPic2{
+	position:absolute;
+	width: 400px;
+	height: 400px;
+	right: 480px;
+	top: 450px;
+}
+#protestPic3{
+	position:absolute;
+	width: 430px;
+	height: 300px;
+	right: 500px;
+	top: 100px;
+}
+#page4{
+	width: 1000px;
+	position: absolute;
+	left: 3300px;
+}
+#notText{
+	position: absolute;
+	top: 380px;
+	left: 200px;
+}
+
+.fadeElements{
+	/*position: relative;*/
+}
+

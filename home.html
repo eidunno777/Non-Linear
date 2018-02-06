@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>A Painful Pattern</title>
+		<link rel="stylesheet" href="styles.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<!-- <img id="pic" src="images/garner.jpg"> -->
+		<div id="main">
+			<h1 id="title">A PAINFUL PATTERN</h1>
+			<div id="nav">
+				<button id="up" onclick="changeTimeline(-1)"><img src="images/upArrow.png" width="35"></button>
+				<button id="down" onclick="changeTimeline(1)"><img src="images/downArrow.png" width="35"></button>
+				<p id="navName">ERIC</p>
+
+				<div id="navCircles">
+					<button class="circleBut" id="p1" onclick="shiftTo1()"></button>
+					<button class="circleBut" id="p2" onclick="shiftTo2()"></button>
+					<button class="circleBut" id="p3" onclick="shiftTo3()"></button>
+					<button class="circleBut" id="p4" onclick="shiftTo4()"></button>
+				</div>
+			</div>
+			<div id="timelineBlock">
+				<div id="page1">
+					<div class="fadeElements">
+						<img id="portrait" src="images/garner.jpg">
+						<p id="name">ERIC GARNER</p>
+						<p id="date">JULY 17, 2014</p>
+						<p id="age">43</p>
+					</div>
+					<p id="killedOn">KILLED ON:</p>
+				</div>
+				<div id="page2">
+					<div class="fadeElements">
+						<iframe id="vid" width="420" height="315"
+							src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen>
+						</iframe>
+					</div>
+				</div>
+				<div id="page3">
+					<p id="protestText">PROTESTS ERUPT</p>
+					<div id="p3" class="fadeElements">
+						<img id="protestPic1" src="images/garnerPP1.jpg" width="400px">
+						<img id="protestPic2" src="images/garnerPP2.jpg" width="400px">
+						<img id="protestPic3" src="images/garnerPP3.jpg" width="400px">
+					</div>
+				</div>
+				<div id="page4">
+					<div class="fadeElements">
+						<p id="notText">GRAND JURY DOES NOT INDICT OFFICER IN ERIC GARNER CASE</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		var timelineElements = 
+		[
+				["images/garner.jpg", "ERIC GARNER", "JULY 17, 2014", "43", "ERIC", "https://www.youtube.com//embed/_s8JklrBSlk", "images/garnerPP1.jpg", "images/garnerPP2.jpg", "images/garnerPP3.jpg", "GRAND JURY DOES NOT INDICT OFFICER IN ERIC GARNER CASE"],
+				["images/crawford.png", "JOHN CRAWFORD III", "AUGUST 5, 2014", "22", "JOHN", "https://www.youtube.com//embed/64doDjNg8ts", "images/crawfordPP1.jpg", "images/crawfordPP2.jpg", "images/crawfordPP3.jpg", "NO CHARGES FOR OFFICER IN FATAL 2014 SHOOTING"]
+		];
+
+		var timelineIndex = 0;
+		showTimeline(timelineIndex);
+
+		function changeTimeline(n) {
+			console.log("CT: " + n);
+			showTimeline(timelineIndex += n);
+		}
+
+		function currentTimeline(n) {
+			showTimeline(timelineIndex = n);
+		}
+
+		function showTimeline(n) {
+			if (n > timelineElements.length) 
+			{
+				timelineIndex = 1;
+			} 
+			if (n < 1) 
+			{
+				timelineIndex = timelineElements.length;
+			}
+			document.getElementById('portrait').src=timelineElements[timelineIndex-1][0];
+			document.getElementById('name').innerHTML=timelineElements[timelineIndex-1][1];
+			document.getElementById('date').innerHTML=timelineElements[timelineIndex-1][2];
+			document.getElementById('age').innerHTML=timelineElements[timelineIndex-1][3];
+			document.getElementById('navName').innerHTML=timelineElements[timelineIndex-1][4];
+			document.getElementById('vid').src=timelineElements[timelineIndex-1][5]
+			document.getElementById('protestPic1').src=timelineElements[timelineIndex-1][6]
+			document.getElementById('protestPic2').src=timelineElements[timelineIndex-1][7]
+			document.getElementById('protestPic3').src=timelineElements[timelineIndex-1][8]
+			document.getElementById('notText').innerHTML=timelineElements[timelineIndex-1][9];
+
+		}
+		
+		// Nav circles page shifts
+		var activeBut = $('#p1').attr('id');
+		function shiftTo1(){
+			$("#p1").toggleClass("active");
+			var p1 = $('#p1').attr('id');
+			if(activeBut != p1)
+			{
+				$("#" + activeBut).toggleClass("active");
+				activeBut = p1;
+				$("#p1").toggleClass("active");
+			}
+			document.getElementById("timelineBlock").style.transform = "translateX(0px)"; 
+		}
+		function shiftTo2(){
+			$("#p2").toggleClass("active");
+			var p2 = $('#p2').attr('id');
+			if(activeBut != p2)
+			{
+				$("#" + activeBut).toggleClass("active");
+				activeBut = p2;
+				$("#p2").toggleClass("active");
+			}
+			document.getElementById("timelineBlock").style.transform = "translateX(-1000px)"; 
+		}
+		function shiftTo3(){
+			document.getElementById("timelineBlock").style.transform = "translateX(-2100px)"; 
+		}
+		function shiftTo4(){
+			document.getElementById("timelineBlock").style.transform = "translateX(-3150px)";
+		}
+
+		// Nav circles toggle active
+		// var activeBut = $('#p1').attr('id');
+		// $("#p1").toggleClass("active");
+		// $('#p1').click(function(){
+		// 	var p1 = $('#p1').attr('id');
+		// 	if(activeBut != p1)
+		// 	{
+		// 		$("#" + activeBut).toggleClass("active");
+		// 		activeBut = p1;
+		// 		$("#p1").toggleClass("active");
+		// 	}
+	 //    });
+	</script>
+</html>
