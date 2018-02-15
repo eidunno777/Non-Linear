@@ -3,69 +3,165 @@
 	<head>
 		<title>A Painful Pattern</title>
 		<link rel="stylesheet" href="styles.css">
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans|Raleway" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="//www.youtube.com/player_api"></script>
 	</head>
 	<body>
-		<!-- <img id="pic" src="images/garner.jpg"> -->
-		<div id="main">
-			<h1 id="title">A PAINFUL PATTERN</h1>
-			<div id="nav">
-				<button id="up" onclick="changeTimeline(-1)"><img src="images/upArrow.png" width="35"></button>
-				<button id="down" onclick="changeTimeline(1)"><img src="images/downArrow.png" width="35"></button>
-				<p id="navName">ERIC</p>
-
-				<div id="navCircles">
-					<button class="circleBut" id="p1" onclick="shiftTo1()"></button>
-					<button class="circleBut" id="p2" onclick="shiftTo2()"></button>
-					<button class="circleBut" id="p3" onclick="shiftTo3()"></button>
-					<button class="circleBut" id="p4" onclick="shiftTo4()"></button>
+		<div id="outerBlock">
+			<div id="centerText">
+				<span id='1' class="titleText">A&nbsp;&nbsp;</span>
+				<span id='2' class="titleText">P</span>
+				<span id='3' class="titleText">A</span>
+				<span id='4' class="titleText">I</span>
+				<span id='5' class="titleText">N</span>
+				<span id='6' class="titleText">F</span>
+				<span id='7' class="titleText">U</span>
+				<span id='8' class="titleText">L&nbsp;&nbsp;</span>
+				<span id='9' class="titleText">P</span>
+				<span id='10' class="titleText">A</span>
+				<span id='11' class="titleText">T</span>
+				<span id='12' class="titleText">T</span>
+				<span id='13' class="titleText">E</span>
+				<span id='14' class="titleText">R</span>
+				<span id='15' class="titleText">N</span>
+			</div>
+			<div id="scrollingVids">
+				<button id="vid1But" class="row1 scrollVidBut"" onclick="shiftTo3()"></button>
+				<iframe id="vid1" class="row1 scrollVid" width="210" height="120"
+					src="https://www.youtube.com//embed/_s8JklrBSlk?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&rel=0&mute=1&loop=1&playlist=_s8JklrBSlk&autoplay=1"
+					frameborder="0" loop>
+				</iframe>
+				<button id="vid2But" class="row1 scrollVidBut" onclick="shiftTo3()"></button>
+				<iframe id="vid2" class="row1 scrollVid" width="210" height="120"
+					src="https://www.youtube.com//embed/64doDjNg8ts?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&mute=1&loop=1&playlist=64doDjNg8ts&autoplay=1"
+					frameborder="0" loop>
+				</iframe>
+				<button id="vid3But" class="row2 scrollVidBut" onclick="shiftTo3()"></button>
+				<iframe id="vid3" class="row2 scrollVid" width="210" height="120"
+					src="https://www.youtube.com//embed/MSNbpvX1qYc?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&mute=1&loop=1&playlist=MSNbpvX1qYc&autoplay=1"
+					frameborder="0" loop>
+				</iframe>
+				<button id="vid4But" class="row2 scrollVidBut" onclick="shiftTo3()"></button>
+				<iframe id="vid4" class="row2 scrollVid" width="210" height="120"
+					src="https://www.youtube.com//embed/7YV0EtkWyno?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&mute=1&loop=1&playlist=7YV0EtkWyno&autoplay=1"
+					frameborder="0" loop>
+				</iframe>
+				<button id="vid5But" class="row3 scrollVidBut" onclick="shiftTo3()"></button>
+				<iframe id="vid5" class="row3 scrollVid" width="210" height="120"
+					src="https://www.youtube.com//embed/a0HJdf-oDIs?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&mute=1&loop=1&playlist=a0HJdf-oDIs&autoplay=1"
+					frameborder="0" loop>
+				</iframe>
+				<button id="vid6But" class="row4 scrollVidBut" onclick="shiftTo3()"></button>
+				<iframe id="vid6" class="row4 scrollVid" width="210" height="120"
+					src="https://www.youtube.com//embed/CMYDUpsIOg4?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&mute=1&loop=1&playlist=CMYDUpsIOg4&autoplay=1"
+					frameborder="0" loop>
+				</iframe>
+				<button id="vid7But" class="row4 scrollVidBut" onclick="shiftTo3()"></button>
+				<iframe id="vid7" class="row4 scrollVid" width="210" height="120"
+					src="https://www.youtube.com//embed/jemR7hvla3E?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&mute=1&loop=1&playlist=jemR7hvla3E&autoplay=1"
+					frameborder="0" loop>
+				</iframe>
+				<button id="vid8But" class="row5 scrollVidBut" onclick="shiftTo3()"></button>
+				<iframe id="vid8" class="row5 scrollVid" width="210" height="120"
+					src="https://www.youtube.com//embed/n9F-Bxwu3_Y?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&mute=1&loop=1&playlist=n9F-Bxwu3_Y&autoplay=1"
+					frameborder="0" loop>
+				</iframe>
+			</div>
+			<div id="page2">
+				<iframe id="vid" class="fadeElements" width="720" height="455"
+					src="https://www.youtube.com//embed/7YV0EtkWyno&t=48s?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&mute=1&autoplay=1" frameborder="0" allowfullscreen>
+				</iframe>
+			</div>
+			<div id="main">
+				<div id="timelineBlock">
+					<center>
+					<div id="page1">
+							<p id="name" class="fadeElements"></p>
+							<p id="killedOn">KILLED ON</p>
+							<p id="date" class="fadeElements"></p>
+					</div>
+					</center>
+					<div id="protestScroll">
+						<button id="pp1_1But" class="row1 pp" onclick="shiftTo4()"><img id="pp1_1" class="pp" src="images/garnerPP1.jpg" width="150"></button>
+						<button id="pp1_2But" class="row1 pp" onclick="shiftTo4()"><img id="pp1_2" class="pp" src="images/garnerPP2.jpg" width="150"></button>
+						<button id="pp2_1But" class="row1 pp" onclick="shiftTo4()"><img id="pp2_1" class="pp" src="images/crawfordPP1.jpg" width="150"></button>
+						<button id="pp2_2But" class="row2 pp" onclick="shiftTo4()"><img id="pp2_2" class="pp" src="images/crawfordPP2.jpg" width="150"></button>
+						<button id="pp3_1But" class="row2 pp" onclick="shiftTo4()"><img id="pp3_1" class="pp" src="images/tamirPP1.png" width="150"></button>
+						<button id="pp3_2But" class="row2 pp" onclick="shiftTo4()"><img id="pp3_2" class="pp"  src="images/garnerPP3.jpg" width="150"></button>
+						<button id="pp4_1But" class="row3 pp" onclick="shiftTo4()"><img id="pp4_1" class="pp" src="images/freddiePP1.jpg" width="150"></button>
+						<button id="pp4_2But" class="row3 pp" onclick="shiftTo4()"><img id="pp4_2" class="pp" src="images/freddiePP2.jpg" width="150"></button>
+						<button id="pp5_1But" class="row3 pp" onclick="shiftTo4()"><img id="pp5_1" class="pp"  src="images/dubosePP1.png" width="150"></button>
+						<button id="pp5_2But" class="row4 pp" onclick="shiftTo4()"><img id="pp5_2" class="pp" src="images/dubosePP2.jpg" width="150"></button>
+						<button id="pp6_1But" class="row4 pp" onclick="shiftTo4()"><img id="pp6_1" class="pp" src="images/altonPP1.png" width="150"></button>
+						<button id="pp6_2But" class="row4 pp" onclick="shiftTo4()"><img id="pp6_2" class="pp" src="images/altonPP2.jpg" width="150"></button>
+						<button id="pp7_1But" class="row5 pp" onclick="shiftTo4()"><img id="pp7_1" class="pp" src="images/castilePP1.jpg" width="150"></button>
+						<button id="pp7_2But" class="row5 pp" onclick="shiftTo4()"><img id="pp7_2" class="pp" src="images/castilePP2.jpg" width="150"></button>
+						<button id="pp8_1But" class="row5 pp" onclick="shiftTo4()"><img id="pp8_1" class="pp" src="images/crutcherPP1.jpg" width="150"></button>
+						<button id="pp8_2But" class="row5 pp" onclick="shiftTo4()"><img id="pp8_2" class="pp" src="images/crutcherPP2.jpg" width="150"></button>
+						<button id="pp9_1But" class="row1 pp" onclick="shiftTo4()"><img id="pp9_1" class="pp" src="images/PP.jpg" width="150"></button>
+						<button id="pp9_2But" class="row2 pp" onclick="shiftTo4()"><img id="pp9_2" class="pp" src="images/PP2.jpg" width="150"></button>
+						<button id="pp9_3But" class="row3 pp" onclick="shiftTo4()"><img id="pp9_3" class="pp" src="images/PP3.jpg" width="150"></button>
+					</div>
+					<div id="page3">
+						<img id="protestPic" src="images/castilePP2.jpg" width="720" height="455">
+					</div>
+					<div id="page4">
+						<button id="notText" onclick="shiftTo1()">
+							<span id="fullStr"> 
+								<span id="beforeStr">BEFORE</span>
+								<span id="noStr">NOT</span>
+								<span id="afterStr">AFTER</span>
+							</span>
+						</button>
+					</div>
 				</div>
 			</div>
-			<div id="timelineBlock">
-				<div id="page1">
-					<div class="fadeElements">
-						<img id="portrait" src="images/garner.jpg">
-						<p id="name">ERIC GARNER</p>
-						<p id="date">JULY 17, 2014</p>
-						<p id="age">43</p>
-					</div>
-					<p id="killedOn">KILLED ON:</p>
-				</div>
-				<div id="page2">
-					<div class="fadeElements">
-						<iframe id="vid" width="420" height="315"
-							src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen>
-						</iframe>
-					</div>
-				</div>
-				<div id="page3">
-					<p id="protestText">PROTESTS ERUPT</p>
-					<div id="p3" class="fadeElements">
-						<img id="protestPic1" src="images/garnerPP1.jpg" width="400px">
-						<img id="protestPic2" src="images/garnerPP2.jpg" width="400px">
-						<img id="protestPic3" src="images/garnerPP3.jpg" width="400px">
-					</div>
-				</div>
-				<div id="page4">
-					<div class="fadeElements">
-						<p id="notText">GRAND JURY DOES NOT INDICT OFFICER IN ERIC GARNER CASE</p>
-					</div>
-				</div>
+			<div id="introMain">
+				<button id="pic1" class="row1 portrait" onclick="shiftTo2()"><img src="images/garner.jpg" width="150"></button>
+				<button id="pic2" class="row1 portrait" onclick="shiftTo2()"><img src="images/crawford2.jpg" width="170"></button>
+				<button id="pic3" class="row2 portrait" onclick="shiftTo2()"><img src="images/tamir.jpg" width="170"></button>
+				<button id="pic4" class="row3 portrait" onclick="shiftTo2()"><img src="images/freddie.jpg" width="150"></button>
+				<button id="pic5" class="row3 portrait" onclick="shiftTo2()"><img src="images/dubose.jpg" width="150"></button>
+				<button id="pic6" class="row4 portrait" onclick="shiftTo2()"><img src="images/alton.jpg" width="150"></button>
+				<button id="pic7" class="row4 portrait" onclick="shiftTo2()"><img src="images/castile.jpg" width="170"></button>
+				<button id="pic8" class="row5 portrait" onclick="shiftTo2()"><img src="images/crutcher.jpg" width="170"></button> 
 			</div>
 		</div>
-	</body>
 	<script>
 		var timelineElements = 
 		[
-				["images/garner.jpg", "ERIC GARNER", "JULY 17, 2014", "43", "ERIC", "https://www.youtube.com//embed/_s8JklrBSlk", "images/garnerPP1.jpg", "images/garnerPP2.jpg", "images/garnerPP3.jpg", "GRAND JURY DOES NOT INDICT OFFICER IN ERIC GARNER CASE"],
-				["images/crawford.png", "JOHN CRAWFORD III", "AUGUST 5, 2014", "22", "JOHN", "https://www.youtube.com//embed/64doDjNg8ts", "images/crawfordPP1.jpg", "images/crawfordPP2.jpg", "images/crawfordPP3.jpg", "NO CHARGES FOR OFFICER IN FATAL 2014 SHOOTING"]
+				["ERIC GARNER", "JULY 17, 2014", "https://www.youtube.com//embed/_s8JklrBSlk?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&rel=0&ytp-pause-overlay=0", "images/garnerPP3.jpg", "GRAND JURY DOES NOT INDICT OFFICER IN ERIC GARNER CASE"],
+				["JOHN CRAWFORD III", "AUGUST 5, 2014", "https://www.youtube.com//embed/64doDjNg8ts?showinfo=0&controls=0&iv_load_policy=3&ytp-pause-overlay=0&rel=0", "images/crawfordPP1.jpg", "NO CHARGES FOR OFFICER IN FATAL 2014 SHOOTING"],
+				["TAMIR RICE", "NOVEMBER 22, 2014", "https://www.youtube.com//embed/MSNbpvX1qYc?showinfo=0&controls=0&iv_load_policy=3&ytp-pause-overlay=0&rel=0", "images/tamirPP1.png", "TAMIR RICE SHOOTING: NO CHARGES FOR OFFICERS"],
+				["FREDDIE GRAY", "APRIL 19, 2015", "https://www.youtube.com//embed/7YV0EtkWyno?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&ytp-pause-overlay=0&rel=0", "images/freddiePP1.jpg", "BALTIMORE OFFICER FOUND NOT GUILTY ON ALL CHARGES"],
+				["SAMUEL DUBOSE", "JULY 19, 2015", "https://www.youtube.com//embed/a0HJdf-oDIs?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&mute=1&loop=1&playlist=a0HJdf-oDIs", "images/dubosePP1.png", "MISTRIAL AS OFFICER IS LATEST NOT TO BE CONVICTED"],
+				["ALTON STERLING", "JULY 5, 2016", "https://www.youtube.com//embed/CMYDUpsIOg4?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&ytp-pause-overlay=0&rel=0", "images/altonPP1.png", "NO FEDERAL CHARGES AGAINST OFFICERS IN ALTON STERLING DEATH"],
+				["PHILANDO CASTILE", "JULY 6, 2016", "https://www.youtube.com//embed/jemR7hvla3E?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&ytp-pause-overlay=0&rel=0", "images/castilePP2.jpg", "OFFICER WHO SHOT PHILANDO CASTILE FOUND NOT GUILTY ON ALL COUNTS"],
+				["TERENCE CRUTCHER", "SEPTEMBER 16, 2016", "https://www.youtube.com//embed/n9F-Bxwu3_Y?modestbranding=1&showinfo=0&controls=0&iv_load_policy=3&ytp-pause-overlay=0&rel=0", "images/crutcherPP1.jpg", "IN TULSA NOT GUILTY VERDICT ECHOES OF HISTORIC INJUSTICE"]
 		];
 
+		var firstClick = true;
 		var timelineIndex = 0;
-		showTimeline(timelineIndex);
+		var shifted = false;
+		var count = 0;
+		var children = document.getElementById("centerText").childNodes;
+
+		children.forEach(function(item){
+			count++;
+    		setTimeout(function()
+			{
+	    		$('#' + item.id).css("opacity", '1');
+	    		$('#' + item.id).css("filter", "blur(0px)");
+	    	}, 190 * count);
+		});
+		setTimeout(function()
+		{
+    		$('#centerText').css("opacity", '0');
+    		$('#centerText').css("filter", "blur(3px)");
+    	}, 7100);
 
 		function changeTimeline(n) {
-			console.log("CT: " + n);
 			showTimeline(timelineIndex += n);
 		}
 
@@ -74,69 +170,305 @@
 		}
 
 		function showTimeline(n) {
-			if (n > timelineElements.length) 
-			{
-				timelineIndex = 1;
-			} 
-			if (n < 1) 
-			{
-				timelineIndex = timelineElements.length;
+			timelineIndex = n;
+			if(firstClick){
+				$("#main").toggleClass("mainToggle");
+				$("#timelineBlock").toggleClass("mainToggle");
+				firstClick = false;
 			}
-			document.getElementById('portrait').src=timelineElements[timelineIndex-1][0];
-			document.getElementById('name').innerHTML=timelineElements[timelineIndex-1][1];
-			document.getElementById('date').innerHTML=timelineElements[timelineIndex-1][2];
-			document.getElementById('age').innerHTML=timelineElements[timelineIndex-1][3];
-			document.getElementById('navName').innerHTML=timelineElements[timelineIndex-1][4];
-			document.getElementById('vid').src=timelineElements[timelineIndex-1][5]
-			document.getElementById('protestPic1').src=timelineElements[timelineIndex-1][6]
-			document.getElementById('protestPic2').src=timelineElements[timelineIndex-1][7]
-			document.getElementById('protestPic3').src=timelineElements[timelineIndex-1][8]
-			document.getElementById('notText').innerHTML=timelineElements[timelineIndex-1][9];
+			// $(".fadeElements").css('opacity', '0');
+			// $(".fadeElements").css("filter", "blur(3px)");
+			document.getElementById('name').innerHTML=timelineElements[timelineIndex][0];
+			document.getElementById('date').innerHTML=timelineElements[timelineIndex][1];
+			document.getElementById('vid').src=timelineElements[timelineIndex][2];
+			document.getElementById('protestPic').src=timelineElements[timelineIndex][3]
+			fullNotStr = timelineElements[timelineIndex][4];
+			notSplit();
+			$(".fadeElements").css('opacity', '1');
+			$(".fadeElements").css("filter", "blur(0px)");
+		}
+		function clearTimeline(){
+			if(shifted != true){
+	    		$(".fadeElements").css('opacity', '0');
+	    		$(".fadeElements").css("filter", "blur(3px)");
+			}
+		}
 
-		}
-		
-		// Nav circles page shifts
-		var activeBut = $('#p1').attr('id');
 		function shiftTo1(){
-			$("#p1").toggleClass("active");
-			var p1 = $('#p1').attr('id');
-			if(activeBut != p1)
+			shifted = false;
+			setTimeout(function()
 			{
-				$("#" + activeBut).toggleClass("active");
-				activeBut = p1;
-				$("#p1").toggleClass("active");
+				$('#scrollingVids').css('right', '-100%');
+				$('#scrollingVids').css('left', '100%');
+				$('#protestScroll').css('right', '-200%');
+				$('#protestScroll').css('left', '200%');
+				document.getElementById("page1").style = "right: 50%"; 
+				document.getElementById("page2").style = "right: -75%"; 
+				document.getElementById("page3").style = "right: -175%"; 
+				document.getElementById("page4").style = "right: -275%"; 
+				$('#introMain').css('right', '0px');
+				$('#introMain').css('left', '0px');
+				$('#introMain').css('top', '0px');
+				$('#introMain').css('bottom', '0px');
+			}, 2000);
+			if(first == true){
+				setTimeout(function(){
+					$("#noStr").toggleClass("strFade");
+				}, 1000);
+				$("#beforeStr").toggleClass("strFade");
+				$("#afterStr").toggleClass("strFade");
 			}
-			document.getElementById("timelineBlock").style.transform = "translateX(0px)"; 
+			first = false;
 		}
+		var auto = "&autoplay=1";
+		var first = true;
+		var vidSrc = "";
 		function shiftTo2(){
-			$("#p2").toggleClass("active");
-			var p2 = $('#p2').attr('id');
-			if(activeBut != p2)
-			{
-				$("#" + activeBut).toggleClass("active");
-				activeBut = p2;
-				$("#p2").toggleClass("active");
+			var vidSrc = $("#vid").attr('src');
+			var newVidSrc = vidSrc.concat(auto);
+			document.getElementById('vid').src = newVidSrc;
+			console.log(newVidSrc);
+			shifted = true;
+			$(".fadeElements").css('opacity', '1');
+			$('#scrollingVids').css('right', '0px');
+			$('#scrollingVids').css('left', '0px');
+			$('#scrollingVids').css('top', '0px');
+			$('#scrollingVids').css('bottom', '0px');
+			document.getElementById("page1").style = "right: 150%"; 
+			document.getElementById("page2").style = "right: 25%"; 
+			document.getElementById("page3").style = "right: -75%"; 
+			document.getElementById("page4").style = "right: -175%"; 
+			$('#introMain').css('right', '100%');
+			$('#introMain').css('left', '-100%');
+			$('#protestScroll').css('right', '-100%');
+			$('#protestScroll').css('left', '100%');
+			if(first != true){
+				$("#noStr").toggleClass("strFade");
+				$("#beforeStr").toggleClass("strFade");
+				$("#afterStr").toggleClass("strFade");
+				first = true;
 			}
-			document.getElementById("timelineBlock").style.transform = "translateX(-1000px)"; 
 		}
 		function shiftTo3(){
-			document.getElementById("timelineBlock").style.transform = "translateX(-2100px)"; 
+			//temp, fix later
+        	$("#vid").attr('src',vidSrc);   
+
+			$('#protestScroll').css('right', '0px');
+			$('#protestScroll').css('left', '0px');
+			$('#protestScroll').css('top', '0px');
+			$('#protestScroll').css('bottom', '0px');
+			document.getElementById("page1").style = "right: 250%"; 
+			document.getElementById("page2").style = "right: 125%"; 
+			document.getElementById("page3").style = "right: 32%"; 
+			document.getElementById("page4").style = "right: -75%"; 
+			$('#introMain').css('right', '200%');
+			$('#introMain').css('left', '-200%');
+			$("#scrollingVids").css('right', '200%');
+			$("#scrollingVids").css('left', '-200%');
 		}
 		function shiftTo4(){
-			document.getElementById("timelineBlock").style.transform = "translateX(-3150px)";
+			document.getElementById("page1").style = "right: 350%"; 
+			document.getElementById("page2").style = "right: 225%"; 
+			document.getElementById("page3").style = "right: 132%"; 
+			document.getElementById("page4").style = "right: 16%"; 
+			$('#introMain').css('right', '300%');
+			$('#introMain').css('left', '-300%');
+			$("#scrollingVids").css('right', '300%');
+			$("#scrollingVids").css('left', '-300%');
+			$('#protestScroll').css('right', '200%');
+			$('#protestScroll').css('left', '-200%');
 		}
+		
+		$(document).ready(function(){
+			$('#pic1').hover(function()
+				{
+					//havent shifted to video screen yet (shift2())
+					if(shifted != true)
+					{
+						showTimeline(0);
+					}
+				}, function(){
+					clearTimeline();
+				}
+			);
+			$('#pic2').hover(function()
+				{
+					if(shifted != true)
+					{
+						showTimeline(1);
+					}
+				}, function(){
+					clearTimeline();
+				}
+			);
+			$('#pic3').hover(function()
+				{
+					if(shifted != true)
+					{
+						showTimeline(2);
+					}
+				}, function(){
+					clearTimeline();
+				}
+			);
+			$('#pic4').hover(function()
+				{
+					if(shifted != true)
+					{
+						showTimeline(3);
+					}
+				}, function(){
+					clearTimeline();
+				}
+			);
+			$('#pic5').hover(function()
+				{
+					if(shifted != true)
+					{
+						showTimeline(4);
+					}
+				}, function(){
+					clearTimeline();
+				}
+			);
+			$('#pic6').hover(function()
+				{
+					if(shifted != true)
+					{
+						showTimeline(5);
+					}
+				}, function(){
+					clearTimeline();
+				}
+			);
+			$('#pic7').hover(function()
+				{
+					if(shifted != true)
+					{
+						showTimeline(6);
+					}
+				}, function(){
+					clearTimeline();
+				}
+			);
+			$('#pic8').hover(function()
+				{
+					if(shifted != true)
+					{
+						showTimeline(7);
+					}
+				}, function(){
+					clearTimeline();
+				}
+			);
+		});
+		$("#vid1But").hover(function(){
+				$("#vid1").css("opacity", '1');
+			}, 
+			function(){
+				$("#vid1").css("opacity", '.3');
+			}
+		);
+		$("#vid2But").hover(function(){
+				$("#vid2").css("opacity", '1');
+			}, 
+			function(){
+				$("#vid2").css("opacity", '.3');
+			}
+		);
+		$("#vid3But").hover(function(){
+				$("#vid3").css("opacity", '1');
+			}, 
+			function(){
+				$("#vid3").css("opacity", '.3');
+			}
+		);
+		$("#vid4But").hover(function(){
+				$("#vid4").css("opacity", '1');
+			}, 
+			function(){
+				$("#vid4").css("opacity", '.3');
+			}
+		);
+		$("#vid5But").hover(function(){
+				$("#vid5").css("opacity", '1');
+			}, 
+			function(){
+				$("#vid5").css("opacity", '.3');
+			}
+		);
+		$("#vid6But").hover(function(){
+				$("#vid6").css("opacity", '1');
+			}, 
+			function(){
+				$("#vid6").css("opacity", '.3');
+			}
+		);
+		$("#vid7But").hover(function(){
+				$("#vid7").css("opacity", '1');
+			}, 
+			function(){
+				$("#vid7").css("opacity", '.3');
+			}
+		);
+		$("#vid8But").hover(function(){
+				$("#vid8").css("opacity", '1');
+			}, 
+			function(){
+				$("#vid8").css("opacity", '.3');
+			}
+		);
+		//proper use of selectors
+		$('.pp').hover(function()
+			{
+				$(this).css("opacity", '1');
+				$(this).children().css("transform", 'scale(3, 3)'); 
+			}, 
+			function(){
+				$(this).css("opacity", '.3');
+				$(this).children().css("transform", 'scale(1, 1)'); 
+			}
+		);
 
-		// Nav circles toggle active
-		// var activeBut = $('#p1').attr('id');
-		// $("#p1").toggleClass("active");
-		// $('#p1').click(function(){
-		// 	var p1 = $('#p1').attr('id');
-		// 	if(activeBut != p1)
-		// 	{
-		// 		$("#" + activeBut).toggleClass("active");
-		// 		activeBut = p1;
-		// 		$("#p1").toggleClass("active");
-		// 	}
-	 //    });
+		var keys = ["NO", "NOT"];
+		var fullNotStr = "";
+		var noStr = "";
+		function notSplit(){
+			var before = true;
+			var after = false;
+			var once = true;
+			var beforeStr = "";
+			var afterStr = "";
+			var splitNotStr = fullNotStr.split(' ');
+			for(var i = 0; i < splitNotStr.length; i++){
+				for(var j=0; j < keys.length; j++){
+					if(splitNotStr[i] === keys[j] && once == true){
+						noStr = splitNotStr[i] + " ";
+						before = false;
+						once = false;
+					}
+				}
+				if(before == true){
+					beforeStr = beforeStr + splitNotStr[i] + " ";
+				}
+				else if(after == true)
+				{
+					afterStr = afterStr + splitNotStr[i] + " ";
+				}
+				if(before == false){
+					after = true;
+				}
+			}
+			$('#beforeStr').text(beforeStr);
+			$('#noStr').text(noStr);
+			$('#afterStr').text(afterStr);
+			console.log(beforeStr + noStr + afterStr);
+		}
+	
+
+
+	
+
 	</script>
+	</body>
 </html>
