@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tiny Trumps!</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="botStyle.css">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+  </head>
+  <body>
+
+    <div id="wrapper">
+        <img src="Graphics/DC.jpg" class="fix"/>
+        <div id="blankScreen">
+         <div id="center-block">
+          <a href="https://twitter.com/realDonaldTrump/status/977319371277156352" target="_blank" id="text" class="bigHelv">Day
+            <span id="dayNum" class="bigHelv">410</span>/1460<span id="timeStamp" class="bigHelv"> 20:37:51</span>
+          </a>
+          <canvas id="canvas"></canvas>
+          <a class="bird" href="https://twitter.com/TinyTrumpRobot?lang=en" target="_blank">
+              <img src="bird.png">
+          </a>
+        </div>
+        </div>
+       <!--  <div class="info">
+          <h2 class="about" onclick="clickedAbout()">About</h2>
+          <p class="information" id="info-text">
+                This is a single-serve companion site to the TinyTrump twitter bot I made. The bot tweets a picture of a Tiny Trump (taken from r/TinyTrump) every time Donald Trump tweets and will continue doing so until he is no long President. Enjoy!
+          </p>
+        </div> -->
+    </div> 
+  </body>
+  <script>
+      document.getElementById("wrapper").onmousemove = function(event) {switchPointer(event)};
+
+      function switchPointer(e) {
+          var x = e.clientX;
+          var screenW = $(window).width();
+          if(x > screenW / 2){
+            document.getElementById("wrapper").style.cursor = "url(Graphics/arrowRight.png), auto";
+          }
+          else{
+            document.getElementById("wrapper").style.cursor = "url(Graphics/arrowLeft.png), auto";
+          }
+      }
+
+      var onScreen = document.getElementsByClassName('onScreen');
+      // initialize drag events
+      Slider.prototype.initEvents = function () {
+         document.getElementById("blankScreen").addEventListener('click', this.onEnd.bind(this));  
+         // onScreen[0].addEventListener('click', this.onEnd.bind(this));  
+      };
+
+      // mouseup event
+      Slider.prototype.onEnd = function (evt) {
+          // onScreen[0].removeEventListener("click", this.onEnd);
+          var x = evt.clientX;
+          var screenW = $(window).width();
+          if(x > screenW / 2){          
+            this.slideLeft();
+          }
+          else{  
+            this.slideRight();
+          }
+      };
+
+      // slide to left direction
+      Slider.prototype.slideLeft = function () {
+        // if last don't do nothing
+        var self = this;
+        var card = this.cards[this.currentIndex];
+        //move 'current' card off screen left:
+        if(this.currentIndex != this.cards.length - 1)
+        {
+          $("#text").toggleClass("text2");
+          var x = 0;
+          var intervalID = setInterval(function(){
+             draw();
+             if (++x === 7) {
+                 window.clearInterval(intervalID);
+                 $("#text").toggleClass("text2");
+             }
+          }, 60);
+          card.style.left = '-150%';
+
+          //change index
+          this.currentIndex += 1;
+          // card.removeEventListener("click", this.onEnd);
+          card = this.cards[this.currentIndex]; 
+          var day = card.getAttribute('day');
+          var time = " " + card.getAttribute('time');
+          var url = card.getAttribute('url');
+          setTimeout(function(){  
+            $("#dayNum").html(day);
+          }, 150);
+           setTimeout(function(){  
+            $("#timeStamp").html(time);
+            $("#text").attr("href", url)
+          }, 190);
+          //move 'next' card (off screen right) to center screen:
+          card.style.left = '50%';
+        }
+      };
+
+      // slide to right direction
+      Slider.prototype.slideRight = function () {
+        // if last don't do nothing
+        var self = this;
+        var card = this.cards[this.currentIndex];
+         //move 'current' card off screen right:
+        if(this.currentIndex != 0)
+        {
+          $("#text").toggleClass("text2");
+          var x = 0;
+          var intervalID = setInterval(function(){
+             draw();
+             if (++x === 7) {
+                 $("#text").toggleClass("text2");
+                 window.clearInterval(intervalID);
+             }
+          }, 60);
+          card.style.left = '250%';
+
+          this.currentIndex -= 1;
+          // card.removeEventListener("click", this.onEnd);
+          card = this.cards[this.currentIndex];
+          var day = card.getAttribute('day');
+          var time = " " + card.getAttribute('time');
+          var url = card.getAttribute('url');
+          setTimeout(function(){  
+            $("#dayNum").html(day);
+          }, 110);
+           setTimeout(function(){  
+            $("#timeStamp").html(time);
+            $("#text").attr("href", url)
+          }, 190);
+           //move 'prev' card (off screen left) to center screen
+          card.style.left = '50%';
+        }
+      };
+
+      //animation code
+      var canvasWidth = 650;
+      var canvasHeight = 500;
+      var x= 0;
+      var y= 0;
+      var srcX;
+      var srcY;
+
+      var sheetWidth = 3641;
+      var sheetHeight = 243;
+      var frameCount = 7;
+      var frameWidth = sheetWidth / frameCount;
+      var currentFrame = 0;
+
+      var birdPuke = new Image();
+      birdPuke.src = "Graphics/birdPuke.png";
+      var canvas = document.getElementById('canvas');
+      canvas.width =  canvasWidth;
+      canvas.height = canvasHeight;
+      var ctx = canvas.getContext('2d')
+
+      function updateFrame(){
+        currentFrame = ++currentFrame % frameCount;
+        srcX = currentFrame * frameWidth;
+        srcY = 0;
+        ctx.clearRect(x, y, frameWidth, sheetHeight);
+      }
+
+      function draw(){
+          updateFrame();
+          ctx.drawImage(birdPuke, srcX, srcY, frameWidth, sheetHeight, x, y, frameWidth, sheetHeight);
+      }
+
+    function pullTweets(){
+        var xmlHttp = new XMLHttpRequest();
+        var self = this;
+        xmlHttp.open("POST", "pullTweets.php", true);
+        xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlHttp.addEventListener("load", function(event){
+        var jsonData = JSON.parse(event.target.responseText);
+        //for each tweet add a img w/ info for that specific tweet
+        for(var i=0; i<jsonData.length; i++) {
+          console.log("HI");
+          var imageURL = jsonData[i][0];
+          var tweetURL = jsonData[i][1];
+          var day = jsonData[i][2];
+          var time = jsonData[i][3];
+          var img = document.createElement("img");
+          img.setAttribute('day', day);
+          img.setAttribute('time', time);
+          img.setAttribute('url', tweetURL);
+          img.src = imageURL;
+          img.classList.add("card");
+          if(i == jsonData.length - 1){
+            img.classList.add("onScreen");
+             $("#dayNum").html(day);
+            $("#timeStamp").html(" " + time);
+          }
+          else{
+            img.classList.add("offScreen");
+          }
+          document.getElementById("center-block").appendChild(img);
+        }
+      }, false);
+      xmlHttp.send();
+    }
+
+    pullTweets();
+
+    // create slider
+    function Slider () {
+        this.cards = document.querySelectorAll('.card');
+        this.currentIndex = this.cards.length - 1;
+        this.initEvents();
+        console.log(this.cards.length);
+    }
+    setTimeout(function(){ var slider = new Slider(); }, 500);
+
+     var visible = false;
+
+        function clickedAbout(){
+            var element = document.getElementById('info-text');
+            if(visible == false){
+                element.style.display="block";
+                console.log('visible');
+                visible = true;
+            }else {
+                console.log("hidden");
+                element.style.display="none";
+                visible = false;
+            }
+        }
+
+// function leap (year, num)
+// {
+//   if((year % 4) == 0)
+//   {
+//     num = 1;
+//   }
+//   else{
+//     num = 0;
+//   }
+//   if((year % 100 == 0) && ((year % 400)) == 0){
+//     num = 1;
+//   }
+//   return num;
+// }
+
+    
+// var fs = require('fs'),
+//     path = require('path'),
+//     Twit = require('twit'),
+//     config = require(path.join(__dirname, 'config.js'));
+
+// var T = new Twit(config);
+
+// function random_from_array(images){
+//   return images[Math.floor(Math.random() * images.length)];
+// }
+
+// function upload_random_image(images){
+//   console.log('Reading image directory...');
+//   fs.readdir(__dirname + '/images', function(err, files) {
+//     if (err){
+//       console.log(err);
+//     }
+//     else{
+//       var images = [];
+//       files.forEach(function(f) {
+//         images.push(f);
+//       });
+
+//       if (!images.length){
+//         console.log('No images, exiting!');
+//         return false;
+//     setInterval(function(){
+//       upload_random_image(images);
+//     }, 100000);
+//       }
+
+//       console.log('Opening an image...');
+//       var imageURL = random_from_array(images);
+//       console.log(imageURL);
+//       // var image_path = path.join(__dirname, '/images/' + random_from_array(images)),
+//       //     b64content = fs.readFileSync(image_path, { encoding: 'base64' });
+//       var image_path = path.join(__dirname, '/images/' + imageURL),
+//           b64content = fs.readFileSync(image_path, { encoding: 'base64' });
+//       console.log('Uploading an image...');
+
+//       T.post('media/upload', { media_data: b64content }, function (err, data, response) {
+//         if (err){
+//           console.log('ERROR:');
+//           console.log(err);
+//         }
+//         else{
+//           console.log('Image uploaded!');
+//           console.log('Now tweeting it...');
+
+//           T.post('statuses/update', {    
+//             status: random_from_array([
+//               '',
+//               '',
+//               ''
+//             ]), 
+//             media_ids: new Array(data.media_id_string)
+//           },
+//             function(err, data, response) {
+//               if (err){
+//                 console.log('ERROR:');
+//                 console.log(err);
+//               }
+//               else{
+//                 console.log('Posted an image! Now deleting...');
+//                 fs.unlink(image_path, function(err){
+//                   if (err){
+//                     console.log('ERROR: unable to delete image ' + image_path);
+//                     console.log(err);
+//                   }
+//                   else{
+//                     console.log('image ' + image_path + ' was deleted');
+//                     return imageURL;
+//                   }
+//                 });
+//               }
+//             }
+//           );
+//         }
+//       });
+//     }
+//   });
+// }
+
+// var Twitter = require('twitter');
+// var deepEqual = require('deep-equal')
+// var equals = require('array-equal')
+// var client = new Twitter({
+//     consumer_key: 'MfRUoy3fbhvMQNJo2RfjO9ZJB',
+//     consumer_secret: 'HpLshqQlId6dHDHrfdXjV8TDzHYRQH8TrtI5Zz6QYaS2Nmq8eW',
+//     access_token_key: '968603300223488000-5OaOnLsSNzfNlwuQDGVYJJFJZEvZQyv',
+//     access_token_secret: 'YmjBQBIiZWNA8pIOF7LWbktSLBQXMaGJQRuwVYvKkHB42'
+// });
+
+// var lasttweet = null;
+// function checkForNewTweet(){
+//   var error = function (err, response, body) {
+//     console.log('ERROR [%s]', err);
+//   };
+//   var success = function (data) {
+//     console.log('Data [%s]', data);
+//   };
+//   var params = {screen_name: 'realDonaldTrump',
+//         count: '1'};
+//   client.get('statuses/user_timeline', params, function(error, tweets, response) {
+//     if (!error) {
+//       var tweetsStr = JSON.stringify(tweets);
+//       var lasttweetStr = JSON.stringify(lasttweet);
+//       var regex = new RegExp('"statuses_count":\\d+');
+//       var tweetsArray = regex.exec(tweetsStr);
+//       var lastTweetsArray = regex.exec(lasttweetStr);
+//       tweetsStr = tweetsStr.substring(1, tweetsStr.length-1)
+//       var json = JSON.parse(tweetsStr);
+//       var urlStr = JSON.stringify(json.user);
+//       var urlJSON = JSON.parse(urlStr);
+//       var date = json.created_at;
+//       var url = urlJSON.url;
+//       var x;
+//       var today = new Date();
+//       var day = today.getDate();
+//       var month = today.getMonth()+1; //January is 0!
+//       var year = today.getFullYear()
+//       var count;
+//       var num;
+//       count = mon_cnt(month);
+//       var dayCount = day_count();
+//       var trumpDay = 345 + dayCount;
+//       var timeStamp = date.substring(11, 20);
+  
+//       if(lastTweetsArray != null){
+//         console.log(equals(tweetsArray, lastTweetsArray));
+//         if (equals(tweetsArray, lastTweetsArray)){
+//           num = leap(year, num);
+//           console.log("NEW TWEET FOUND");
+//           lasttweet = tweets;
+//           fs.readdir(__dirname + '/images', function(err, files) {
+//             if (err){
+//               console.log(err);
+//             }
+//             else{
+//               var images = [];
+//               files.forEach(function(f) {
+//                 images.push(f);
+//               });
+//               var imageURL = "batchedImages/" + upload_random_image(images);
+//               console.log(imageURL);
+//               var dataString = "imageURL=" + encodeURIComponent(imageURL) + "&url=" + encodeURIComponent(url) + "&day=" + encodeURIComponent(trumpDay) + "&time=" + encodeURIComponent(timeStamp);
+//               var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+//               xmlHttp.open("POST", "newEntry.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+//               xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//               xmlHttp.send(dataString);
+//             }
+//           });
+//         }
+//       }
+//       lasttweet = tweets;
+//     }
+//   });
+// }
+// // upload_random_image();
+// // realDonaldTrump
+// var count = 0;
+// setInterval(function(){
+//     checkForNewTweet();
+//     console.log("count: " + count);
+//     count++;
+//   }, 5000);
+
+//  /*
+//   Determine day count
+//   */
+//   function mon_cnt (month)
+//   {
+//     if (month == 1)
+//     {
+//       count = 0;
+//     }
+//     else if (month == 2){
+//       count = 31;
+//     }
+//     else if (month == 3){
+//       count = 59;
+//     }
+//     else if (month == 4){
+//       count = 90;
+//     }
+//     else if (month == 5){
+//       count = 120;
+//     }
+//     else if (month == 6){
+//       count = 151;
+//     }
+//     else if (month == 7){
+//       count =181;
+//     }
+//     else if (month == 8){
+//       count = 212;
+//     }
+//     else if (month == 9){
+//       count = 243;
+//     }
+//     else if (month == 10){
+//       count = 273;
+//     }
+//     else if (month == 11){
+//       count = 304;
+//     }
+//     else if (month == 12){
+//       count = 334;
+//     }
+
+//     return count;
+//   }
+//   /*Determine day count of the year*/
+//   var x;
+//   var today = new Date();
+//   var day = today.getDate();
+//   var month = today.getMonth()+1; //January is 0!
+//   var year = today.getFullYear()
+//   var count;
+//   var num;
+//   function day_count()
+//   {
+//     x = count + num + day;
+//     return x;
+//   }
+</script>
+</html>
