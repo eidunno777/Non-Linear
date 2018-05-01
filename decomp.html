@@ -1,0 +1,621 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="html2canvas.min.js"></script>
+    <script src="canvas-toBlob.js"></script>
+    <script src="html2canvas.js"></script>
+    <script src="dom-to-image.js"></script>
+    <script src = "pixelate.js"></script>
+    <link rel="stylesheet" href="colStyles3.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="wrapper">
+      <cetner>
+        <!-- <div id="widthWrap">
+
+        </div> -->
+        <div id="outerImgWrap" class="fade">
+         <!--  <div class="imgWrap" class="capture">
+          </div> -->
+        </div>
+        <input type="range" min="1" max="20" value="1" class="slider" id="myRange" oninput="pixelateAll(this.value)" onchange="pixelateAll(this.value)">
+
+       <button class="gridBtn" id='grid3Btn' onclick="convertGrid(event)"> <div class="gridBtnImg" id='grid3BtnImg' src="images/Graphics/grid3.png"></div></button>
+       <button class="gridBtn" id='grid12Btn' onclick="convertGrid(event)" src="images/Graphics/grid12.png"><div class="gridBtnImg" id='grid12BtnImg' src="images/Graphics/grid12.png"></div></button>
+      </cetner>
+      <div id="widthWrap">
+
+      </div>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <script type="text/javascript" src="collection.js"></script> -->
+  <script>
+
+    document.body.className += ' fade-out';
+    $(function() {
+      $('body').removeClass('fade-out');
+    });
+    var pageImages = [];
+
+    var sunsetImages = [];
+    var sunsetVertImages = [];
+    var sunsetHorzImages = [];
+    var sunsetBothImages = [];
+
+    var forestImages = [];
+    var forestVertImages = [];
+    var forestHorzImages = [];
+    var forestBothImages = []; 
+
+    var oceanImages = [];
+    var oceanVertImages = [];
+    var oceanHorzImages = [];
+    var oceanBothImages = [];
+
+    var airPImages = [];
+    var airPVertImages = [];
+    var airPHorzImages = [];
+    var airPBothImages = [];
+
+    var oceanPImages = [];
+    var oceanPVertImages = [];
+    var oceanPHorzImages = [];
+    var oceanPBothImages = [];
+
+    var forestPImages = [];
+    var forestPVertImages = [];
+    var forestPHorzImages = [];
+    var forestPBothImages = [];
+
+    function ajaxImages(){
+      var xmlHttp = new XMLHttpRequest();
+          xmlHttp.open("POST", "grabImages2.php", true);
+          xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xmlHttp.addEventListener("load", function(event){
+            var jsonData = JSON.parse(event.target.responseText);
+            // console.log(jsonData);
+            for(var i = 0; i < jsonData.sunsets.length; i++){
+                  sunsetImages.push(jsonData.sunsets[i]);           
+                  sunsetVertImages.push(jsonData.sunsetsVert[i]);
+                  sunsetHorzImages.push(jsonData.sunsetsHorz[i]);
+                  sunsetBothImages.push(jsonData.sunsetsBoth[i]);
+            }
+            for(var i = 0; i < jsonData.airP.length; i++){
+                  airPImages.push(jsonData.airP[i]);
+                  airPVertImages.push(jsonData.airPVert[i]);
+                  airPHorzImages.push(jsonData.airPHorz[i]);
+                  airPBothImages.push(jsonData.airPBoth[i]);
+            }
+
+            for(var i = 0; i < jsonData.forest.length; i++){
+                 forestImages.push(jsonData.forest[i]);
+                 forestVertImages.push(jsonData.forestVert[i]);
+                 forestHorzImages.push(jsonData.forestHorz[i]);
+                 forestBothImages.push(jsonData.forestBoth[i]);
+            }
+
+            for(var i = 0; i < jsonData.forestP.length; i++){
+                 forestPImages.push(jsonData.forestP[i]);
+                 forestPVertImages.push(jsonData.forestPVert[i]);
+                 forestPHorzImages.push(jsonData.forestPHorz[i]);
+                 forestPBothImages.push(jsonData.forestPBoth[i]);
+            }
+
+            for(var i = 0; i < jsonData.oceans.length; i++){
+                 oceanImages.push(jsonData.oceans[i]);
+                 oceanVertImages.push(jsonData.oceansVert[i]);
+                 oceanHorzImages.push(jsonData.oceansHorz[i]);
+                 oceanBothImages.push(jsonData.oceansBoth[i]);
+            }
+
+            for(var i = 0; i < jsonData.oceanP.length; i++){
+                  oceanPImages.push(jsonData.oceanP[i]);
+                  oceanPVertImages.push(jsonData.oceanPVert[i]);
+                  oceanPHorzImages.push(jsonData.oceanPHorz[i]);
+                  oceanPBothImages.push(jsonData.oceanPBoth[i]);
+            }
+            populateImageArray();
+            generatePage();
+          }, false);
+          xmlHttp.send();
+    }
+    ajaxImages();
+
+    var grid3 = true;
+    var grid12 = false;
+    // var grid3 = false;
+    // var grid12 = true;
+    var image1;
+    var image2;
+    var image3;
+
+    function randomWasteImage(){
+      var rando = Math.random();
+      if(rando < .33){
+        return forestPImages[Math.floor(Math.random() * forestPImages.length)];
+      }
+      else if(rando > .33){
+        if(rando > .66){
+          return oceanPImages[Math.floor(Math.random() * oceanPImages.length)];
+        }
+        else{
+           return airPImages[Math.floor(Math.random() * airPImages.length)];
+        }
+      }
+    }
+
+    var imageArray = [];
+    var selected = [];
+    function chooseSequence() {
+      selected = [];
+      var options = ["sunset", "ocean", "forest", "waste"];
+        while(options.length > 2){
+          var index = Math.floor(Math.random()*options.length);
+          // console.log(options.length);
+          var picked = options[index];
+          options.splice(index, 1);  // This removes the picked element from the array
+          selected.push(picked);
+        }
+        return selected;
+    }
+
+    function populateImageArray(){
+      var count = 0;
+      while(count < 50){
+        imageArray[count] = chooseSequence();
+        console.log(chooseSequence());
+        count++;
+      }
+    }
+
+    function convertGrid(event){
+      console.log(event.target.id);
+      if(event.target.id == "grid12BtnImg" && grid12 == false){
+        // $("#myRange").val(21);
+        $("#myRange").val(1);
+        $("#grid3BtnImg").toggleClass("grid3Toggle");
+        $("#grid12BtnImg").toggleClass("grid12Toggle");
+        var count = 0;
+        //change size of imageArray count
+        while(count < 50){
+          if(grid12 == true){
+             // imageArray[count].splice(-1,1)
+             imageArray[count].splice(-1,1)
+          }
+          if(grid3 == true){
+            var options = ["sunset", "ocean", "forest", "waste"];
+            var oldPick = true;
+            while(oldPick){
+              var index = Math.floor(Math.random()*options.length);
+              var picked = options[index];
+              if(picked == imageArray[count][0] || picked == imageArray[count][1]){
+
+              }
+              else{
+                oldPick = false; 
+                imageArray[count][2] = picked;
+              }
+            }
+          }
+          count++;
+        }
+        grid12 = true;
+        grid3 = false;
+        var outerImgWrap = document.getElementById("outerImgWrap");
+        while (outerImgWrap.firstChild) {
+            outerImgWrap.removeChild(outerImgWrap.firstChild);
+        }
+        generatePage();
+      }
+      else if (event.target.id == "grid3BtnImg" && grid3 == false){
+        $("#grid3BtnImg").toggleClass("grid3Toggle");
+        $("#grid12BtnImg").toggleClass("grid12Toggle");
+        var count = 0;
+        //change size of imageArray count
+        while(count < 50){
+          if(grid12 == true){
+             // imageArray[count].splice(-1,1)
+             imageArray[count].splice(-1,1)
+          }
+          if(grid3 == true){
+            var options = ["sunset", "ocean", "forest", "waste"];
+            var oldPick = true;
+            while(oldPick){
+              var index = Math.floor(Math.random()*options.length);
+              var picked = options[index];
+              if(picked == imageArray[count][0] || picked == imageArray[count][1]){
+
+              }
+              else{
+                oldPick = false; 
+                imageArray[count][2] = picked;
+              }
+            }
+          }
+          count++;
+        }
+        grid12 = false;
+        grid3 = true;
+        var outerImgWrap = document.getElementById("outerImgWrap");
+        while (outerImgWrap.firstChild) {
+            outerImgWrap.removeChild(outerImgWrap.firstChild);
+        }
+        generatePage();
+      }
+    }
+
+    var ct = 0;
+    function generatePage(){
+      $("#widthWrap").toggleClass("widthWrapToggle");
+      $("#myRange").val(1);
+      var moreLeft = 0;
+      var firstLeft = 50;
+      var imgNums = 50;
+      var image1;
+      var image2;
+      var image1Horz; 
+      var image3;
+      var width = 6;
+      var height = 2;
+      var allImages = document.querySelectorAll('img[data-pixelate]');
+      // for(var i = 0; i < allImages.length ; i++) {
+      //   $(allImages[i]).css("display", "none");
+      // }
+      for(var i = 0; i < imgNums; i++){
+        var imgWrap = document.createElement('div');
+        var baseImageSet = [];
+        var imageSet = [width];
+        for (var x = 0; x < height; x++) {
+          imageSet[x] = new Array(width);
+        }
+        // console.log("imgArrayLength: " + imageArray[i].length);
+        for(var j = 0; j < imageArray[i].length; j++){
+          if(j == 0){
+            if(imageArray[i][j] == "waste"){
+              image1 = randomWasteImage();
+            }
+            else if(imageArray[i][j] == "sunset"){
+              image1 = sunsetImages[Math.floor(Math.random() * sunsetImages.length)];
+            }
+            else if(imageArray[i][j] == "ocean"){
+              image1 = oceanImages[Math.floor(Math.random() * oceanImages.length)];
+            }
+            else if(imageArray[i][j] == "forest"){
+              image1 = forestImages[Math.floor(Math.random() * forestImages.length)];
+            }
+            baseImageSet.push(image1);
+          }
+          else if(j == 1){
+            if(imageArray[i][j] == "waste"){
+              image2 = randomWasteImage();
+            }
+            else if(imageArray[i][j] == "sunset"){
+              image2 = sunsetImages[Math.floor(Math.random() * sunsetImages.length)];
+            }
+            else if(imageArray[i][j] == "ocean"){
+              image2 = oceanImages[Math.floor(Math.random() * oceanImages.length)];
+            }
+            else if(imageArray[i][j] == "forest"){
+              image2 = forestImages[Math.floor(Math.random() * forestImages.length)];
+            }
+            baseImageSet.push(image2);
+          }
+          else if(j == 2){
+            if(imageArray[i][j] == "waste"){
+              image3 = randomWasteImage();
+            }
+            else if(imageArray[i][j] == "sunset"){
+              image3 = sunsetImages[Math.floor(Math.random() * sunsetImages.length)];
+            }
+            else if(imageArray[i][j] == "ocean"){
+              image3 = oceanImages[Math.floor(Math.random() * oceanImages.length)];
+            }
+            else if(imageArray[i][j] == "forest"){
+              image3 = forestImages[Math.floor(Math.random() * forestImages.length)];
+            }
+            baseImageSet.push(image3);
+          }
+        }
+
+        if(grid12){
+           for(var e = 0; e < baseImageSet.length; e++){
+              var xIndex = baseImageSet.indexOf(baseImageSet[e]);
+              var yIndex = 0;
+              var vert = searchVerts(baseImageSet[e]);
+              var horz = searchHorzs(baseImageSet[e]);
+              var both = searchBoth(baseImageSet[e]);
+              imageSet[yIndex][xIndex] = baseImageSet[e];
+              imageSet[(height - 1) - yIndex][xIndex] = vert;
+              imageSet[yIndex][(width - 1) - xIndex] = horz;
+              imageSet[(height - 1) - yIndex][(width - 1) - xIndex] = both;
+            }
+          console.log("Base Image set:");
+          console.log(baseImageSet);
+          console.log("All Image set:");
+          console.log(imageSet);
+          ct++;
+          for(var r = 0; r < imageSet.length; r++){
+            for(var c = 0; c < imageSet[r].length; c++)
+            {
+              if(c > (width - 1) / 2){
+                if(r > (height - 1) / 2){
+                 $(imgWrap).append(imgCreateSmall(imageSet[r][c], "Both"));
+                }
+                else{ 
+                  $(imgWrap).append(imgCreateSmall(imageSet[r][c], "Horz"));
+                }
+              }
+              else if(r > ((height / 2) - 1)){
+                $(imgWrap).append(imgCreateSmall(imageSet[r][c], "Vert"));
+              }
+              else{
+                $(imgWrap).append(imgCreateSmall(imageSet[r][c], "Reg"));
+              }
+            }
+          }
+        }
+        else{
+          image1Horz = searchHorzs(image1);
+          $(imgWrap).append(imgCreate(image1, "Reg"));
+          $(imgWrap).append(imgCreate(image2, "Reg"));
+          $(imgWrap).append(imgCreate(image1Horz, "Horz"));
+        }
+        percentLeft = firstLeft + moreLeft;
+        imgWrap.setAttribute("class", "imgWrap");
+        imgWrap.setAttribute("id", i);
+        var imgWrapId =  imgWrap.id;
+        $("#outerImgWrap").append(imgWrap);
+        $("#" + imgWrapId).css('left', percentLeft + '%'); 
+        moreLeft += 103;
+      }
+      setTimeout(function(){
+        pixelateAll(1);
+      }, 700);
+      $(".fade").hide(0).delay(700).fadeIn(600)
+    }
+
+    function imgCreate(src, title) {
+      var img = document.createElement('img');
+      img.src = "images/" + title + "/" + src;
+      img.setAttribute("class", title + " All"); 
+      img.setAttribute("width", "400");
+      img.setAttribute("height", "400");
+      img.setAttribute("data-pixelate", '');
+      return img;
+    }
+    function imgCreateSmall(src, title) {
+      var img = document.createElement('img');
+      img.src = "images/" + title + "/" + src;
+      img.setAttribute("class", title + " All"); 
+      img.setAttribute("width", "200");
+      img.setAttribute("height", "200");
+      img.setAttribute("data-pixelate", '');
+      return img;
+    }
+    //pixelates all so duplicates everything until condition 
+    function pixelateAll(newVal){
+      console.log("HEYYY");
+      var selected = $( "#sortOption option:selected" ).text();
+      var allCanvases = document.getElementsByTagName('canvas');
+      var allImages = document.querySelectorAll('img[data-pixelate]');
+      while (allCanvases[0]){
+         $(allCanvases[0]).remove();
+      }
+      for(var i = 0; i < allImages.length ; i++) {
+          $(allImages[i]).attr("data-value", newVal / 200);
+          if($("#myRange").val() != 20){
+            $(allImages[i]).pixelate();
+          }
+          else{
+            $(allImages[i]).css("display", "block");
+          }
+          $(allCanvases[i]).trigger("mouseleave");
+      }
+    }
+
+    (function (window, $) {
+      var pixelate = function() {
+        var defaults = {
+          value: 0.4,
+          reveal: true,
+          revealonclick: false
+        };
+
+        var options = arguments[1] || {};
+        var element = this;
+        var elementParent = element.parentNode;
+
+        if (typeof options !== 'object') {
+          options = { value: parseInt(arguments[1]) };
+        }
+
+        options = (function() {
+          var opts = {};
+
+          for (var k in defaults) {
+            if (element.hasAttribute('data-' + k)) {
+              opts[k] = element.getAttribute('data-' + k);
+              continue;
+            }
+
+            if (k in options) {
+              opts[k] = options[k];
+              continue;
+            }
+
+            opts[k] = defaults[k];
+          }
+          return opts;
+        })();
+
+        var imgWidth = element.width;
+        var imgHeight = element.height;
+        var revealed = false;
+
+        var canv = document.createElement('canvas');
+        canv.width = imgWidth;
+        canv.height = imgHeight;
+
+        var ctx = canv.getContext('2d');
+        ctx.mozImageSmoothingEnabled = false;
+        ctx.webkitImageSmoothingEnabled = false;
+        ctx.imageSmoothingEnabled = false;
+
+        var width = imgWidth * options.value;
+        var height = imgHeight * options.value;
+
+        ctx.drawImage(element, 0, 0, width, height);
+        ctx.drawImage(canv, 0, 0, width, height, 0, 0, canv.width, canv.height);
+
+        element.style.display = 'none';
+
+        elementParent.insertBefore(canv, element);
+
+        if (options.revealonclick !== false && options.revealonclick !== 'false') {
+          /*
+           * Reveal on click
+           */
+          canv.addEventListener('click', function () {
+            revealed = !revealed;
+
+            if (revealed) {
+              ctx.drawImage(element, 0, 0, imgWidth, imgHeight);
+            } else {
+              ctx.drawImage(element, 0, 0, width, height);
+              ctx.drawImage(canv, 0, 0, width, height, 0, 0, canv.width, canv.height);
+            }
+          });
+        }
+        if (options.reveal !== false && options.reveal !== 'false') {
+        }
+      };
+
+      if (typeof $ === 'function') {
+        $.fn.extend({
+          pixelate: function() {
+            return this.each(function () {
+              pixelate.apply(this, arguments);
+            });
+          }
+        });
+      }
+    })(window, typeof jQuery === 'undefined' ? null : jQuery);
+
+    var element = document.getElementById("imgWrap");
+      
+      function screenshot(){
+         domtoimage.toPng(element).then(function (dataUrl) {
+              var img = new Image();
+              img.src = dataUrl;
+              document.body.appendChild(img);
+            }).catch(function (error) {
+              console.error('oops, something went wrong!', error);
+          });
+      }
+
+      function searchVerts(image){
+      for(var i = 0; i < sunsetVertImages.length; i++){
+        if(sunsetVertImages[i] === image){
+          return sunsetVertImages[i];
+        }
+      }
+      for(var i = 0; i < oceanVertImages.length; i++){
+        if(oceanVertImages[i] === image){
+          return oceanVertImages[i];
+        }
+      }
+      for(var i = 0; i < forestVertImages.length; i++){
+        if(forestVertImages[i] === image){
+          return forestVertImages[i];
+        }
+      }
+      for(var i = 0; i < airPVertImages.length; i++){
+        if(airPVertImages[i] === image){
+          return airPVertImages[i];
+        }
+      }
+      for(var i = 0; i < oceanPVertImages.length; i++){
+        if(oceanPVertImages[i] === image){
+          return oceanPVertImages[i];
+        }
+      }
+      for(var i = 0; i < forestPVertImages.length; i++){
+        if(forestPVertImages[i] === image){
+          return forestPVertImages[i];
+        }
+      }
+    }
+
+    function searchBoth(image){
+      for(var i = 0; i < sunsetBothImages.length; i++){
+        if(sunsetBothImages[i] === image){
+          return sunsetBothImages[i];
+        }
+      }
+      for(var i = 0; i < oceanBothImages.length; i++){
+        if(oceanBothImages[i] === image){
+          return oceanBothImages[i];
+        }
+      }
+      for(var i = 0; i < forestBothImages.length; i++){
+        if(forestBothImages[i] === image){
+          return forestBothImages[i];
+        }
+      }
+      for(var i = 0; i < airPBothImages.length; i++){
+        if(airPBothImages[i] === image){
+          return airPBothImages[i];
+        }
+      }
+      for(var i = 0; i < oceanPBothImages.length; i++){
+        if(oceanPBothImages[i] === image){
+          return oceanPBothImages[i];
+        }
+      }
+      for(var i = 0; i < forestPBothImages.length; i++){
+        if(forestPBothImages[i] === image){
+          return forestPBothImages[i];
+        }
+      }
+    }
+
+    function searchHorzs(image){
+      for(var i = 0; i < sunsetHorzImages.length; i++){
+        if(sunsetHorzImages[i] === image){
+          return sunsetHorzImages[i];
+        }
+      }
+      for(var i = 0; i < oceanHorzImages.length; i++){
+        if(oceanHorzImages[i] === image){
+          return oceanHorzImages[i];
+        }
+      }
+      for(var i = 0; i < forestHorzImages.length; i++){
+        if(forestHorzImages[i] === image){
+          return forestHorzImages[i];
+        }
+      }
+      for(var i = 0; i < airPHorzImages.length; i++){
+        if(airPHorzImages[i] === image){
+          return airPHorzImages[i];
+        }
+      }
+      for(var i = 0; i < oceanPHorzImages.length; i++){
+        if(oceanPHorzImages[i] === image){
+          return oceanPHorzImages[i];
+        }
+      }
+      for(var i = 0; i < forestPHorzImages.length; i++){
+        if(forestPHorzImages[i] === image){
+          return forestPHorzImages[i];
+        }
+      }
+    }
+  </script>
+</html>
